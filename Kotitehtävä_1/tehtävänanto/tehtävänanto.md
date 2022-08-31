@@ -36,4 +36,4 @@ Saat annettuna `tehtava1.py` nimisen tiedoston, jossa on toteutettuna eräs luok
 
 3. Toteuta vielä toinen python scripti, jonka nimeksi `signalGenerator.py`, joka käyttää `tehtava1.py` skriptiä modulina, josta se importtaa signalAnalyser luokan. Tee `signalGenerator.py` tiedostosta sellainen, että käytäjä voi antaa signaalin taajuuden ja aika-akselin pituuden ja sen jälkeen piirretään vaaditun mittainen ja vaaditun taajuinen sini- ja kosini signaali `tehtava1.py` modulin signalAnalyser luokkaa hyödyntäen. Oleta, että näytetaajuus Fs = 1000 Hz ja muista, että tällöin käyttäjä voi antaa taajuusarvon vain väliltä 0 – 500 Hz. Katso seuraavalta kalvolta miltä ohjelman suorituksen pitäisi näyttää…
 
-![](/Kotitehtävä1/tehtävänannot/esimerkki_kuva.png)
+![](esimerkki_kuva.png)
