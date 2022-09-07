@@ -21,9 +21,13 @@ subData0 = data.date
 subData1 = data.death
 subData2 = data.hospitalizedIncrease
 subData3 = data.hospitalizedCurrently
-# print(data)
 
-print(len(data))
+
+print("näin monta sairastui koronaan:", subData2.max())
+print("tämä ennätys tapahtui", subData0[subData2.idxmax()], "JEEEEEEEE")
+print("tällä hetkellä", int(subData3[subData2.idxmax()]), "ihmistä on sairalassa")
+
+
 
 plt.figure(1)
 plt.subplot(311)
@@ -32,14 +36,6 @@ plt.subplot(312)
 plt.plot(subData2, "-b")
 plt.subplot(313)
 plt.plot(subData3, "-b")
-#plt.show()
-
-#data.iloc[::-1]
-#data.reindex(index=data.index[::-1])
-#print(subData1.head)
-
-
-
 
 
 #"""
