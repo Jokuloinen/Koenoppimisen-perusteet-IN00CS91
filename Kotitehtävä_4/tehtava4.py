@@ -14,7 +14,18 @@ with Numpy array manipulations. Your tasks are the following:
 '''
 size = 256
 kuva = np.zeros((size,size,3))
-kuva[:,:,0]= np.ones((size,size))
+#punane
+kuva[:,:,0]= np.ones((size,size))#punane
+#vihreä
+kuva[0:128,128:256] = np.zeros((size>>1,size>>1,3))
+kuva[0:128,128:256,1]= np.ones((size>>1, size>>1))
+#sinine
+kuva[128:256,0:128] = np.zeros((size>>1,size>>1,3))
+kuva[128:256,0:128,2]= np.ones((size>>1, size>>1))
+#harmaa
+kuva[128:256,128:256:]= 1/2
+
+
 plt.imshow(kuva)
 plt.show()
 
@@ -45,3 +56,43 @@ Your tasks are the following:
    signal and its second power. And print those to a same figure.
 
 '''
+t = np.arange(0,1,0.01)
+na0 = np.sin(2*np.pi*1*t)
+na1 = np.sin(2*np.pi*2*t)
+na2 = np.sin(2*np.pi*3*t)
+na3 = np.sin(2*np.pi*4*t)
+
+fig1 = plt.figure()  # an empty figure with no Axes
+fig1.add_subplot()
+plt.plot(na0)
+fig1.suptitle("1 Hz")
+
+fig2, ax = plt.subplots()  # a figure with a single Axes
+ax.plot(na1)
+ax.set_title("2 Hz")
+
+fig3, axs = plt.subplots(2, 2)  # a figure with a 2x2 grid of Axes
+
+axs[0,0].plot(na0, "-r")
+axs[0,0].set_title("1Hz")
+
+axs[0,1].plot(na1, "-g")
+axs[0,1].set_title("2Hz")
+
+axs[1,0].plot(na2, "-b")
+axs[1,0].set_title("3Hz")
+
+axs[1,1].plot(na3, "-c")
+axs[1,1].set_title("4Hz")
+fig3.suptitle("aaltoja")
+
+plt.show()
+
+
+plt.figure(4)
+#plt.plot(na2)
+#plt.plot(na3)
+plt.plot(np.transpose([na1, na3]))
+
+plt.show()
+print([[na1,na3]])
