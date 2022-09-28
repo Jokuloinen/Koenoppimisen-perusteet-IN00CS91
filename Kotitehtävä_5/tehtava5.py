@@ -47,14 +47,60 @@ Tehtävät:
 '''
 
 import sklearn # This is anyway how package is imported
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import confusion_matrix
+from sklearn import metrics
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import time
 
-data = pd.read_csv("dataout.csv", index_col=["x"], delimiter="\t", header=0, usecols=['x', 'y', 'z', 'labels'])
-print(data)
+#data = pd.read_csv("dataout.csv", index_col=["x"], delimiter="\t", header=0, usecols=['x', 'y', 'z', 'labels'])
+data = pd.read_csv("dataout.csv",
+delimiter="\t",
+header=None,
+usecols=[1,2,3,4]
+#names = ['x','y','z','labels']
+)
+data = data[1:-1]
+data = data[data[1].astype(int) < 1024]
+data = data[data[2].astype(int) < 1024]
+data = data[data[3].astype(int) < 1024]
 
+#categ = data[4].as_type(catgory)
+data[5] = data[4].astype('category').cat.codes;
+nData = data[[1,2,3]].astype(int).to_numpy();
+nLabe = data[[5]].to_numpy();
+print(nData)
+print(nLabe)
+
+x_train, x_test, y_train, y_test = train_test_split( nData, nLabe, test_size=0.2, random_state=0)
+print(x_train, x_test)
+print(y_train, y_test)
+
+
+model = RandomForestClassifier(n_estimators=40, n_jobs=8)
+model.fit(x_train, y_train.ravel())
+#RandomForestClassifier(bootstrap=true, class_weight=None, criterion='gini', max_depth=None, max_features='auto', max_leaf_nodes=None, min_impurity_split=1e-07, min_samples_leaf=1, min_samples_split=2, min_weight_fraction_leaf=0.0, n_estimators=40, n_jobs=1, oob_score=False, random_state=None, verbose=0, warm_start=False)
+print(model.score(x_test, y_test))
+y_pred = model.predict(x_test)
+print(confusion_matrix(y_test, y_pred))
+
+
+k_range = range(1,26)
+scores = {}
+scores_lst = []
+for k in k_range:
+	knn = KNeighborsClassifier(n_neighbors=k)
+	knn.fit(x_train, y_train.ravel())
+	y_pred2=knn.predict(x_test)
+	scores[k]= metrics.accuracy_score(y_test, y_pred2)
+	scores_lst.append(metrics.accuracy_score(y_test, y_pred2))
+	print(confusion_matrix(y_test, y_pred2))
+print(scores)
+print(scores_lst)
 
 
 # 7x³+5x²+6x+17
